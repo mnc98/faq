@@ -104,4 +104,13 @@ class AnswerController extends Controller
         $answer->delete();
         return redirect()->route('questions.show',['question_id' => $question])->with('message', 'Delete');
     }
+
+    public function best($answer) {
+        $users_answers = DB::table('answers')->where('user_id', $answer->user_id);
+        foreach ($users_answers as $ans) {
+            $ans->vote = 0;
+        }
+        $answer->vote = 1;
+    }
+
 }
