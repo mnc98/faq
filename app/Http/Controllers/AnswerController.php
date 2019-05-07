@@ -2,6 +2,7 @@
 namespace App\Http\Controllers;
 use App\Answer;
 use App\Question;
+use DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 class AnswerController extends Controller
@@ -105,12 +106,17 @@ class AnswerController extends Controller
         return redirect()->route('questions.show',['question_id' => $question])->with('message', 'Delete');
     }
 
-    public function best($answer) {
-        $users_answers = DB::table('answers')->where('user_id', $answer->user_id);
+    public function best($question, $answer) {
+        $answer = Answer::find($answer);
+        $users_answers = DB::table('answers')->where('user_id', $answer->user_id)->get();
         foreach ($users_answers as $ans) {
-            $ans->vote = 0;
+            $ans = Answer::find($ans->id);
+            $ans->vote = '0';
+            $ans->save();
         }
-        $answer->vote = 1;
+        $answer->vote = '1';
+        $answer->save();
+        return redirect()->route('questions.show', ['question_id' => $question]);
     }
 
 }
