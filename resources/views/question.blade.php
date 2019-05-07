@@ -37,7 +37,13 @@
                             <div class="card">
                                 <div class="card-body">{{$answer->body}}</div>
                                 <div class="card-footer">
-
+                                    @if($answer->vote === '1')
+                                        {{ Form::radio('Mark', 'yes', true) }}
+                                        <p id="preferredorno">Preferred</p>
+                                    @else
+                                        {{ Form::radio('Mark', 'no') }}
+                                        <p id="preferredorno" hidden>Preferred</p>
+                                    @endif
                                     <a class="btn btn-primary float-right"
                                        href="{{ route('answers.show', ['question_id'=> $question->id,'answer_id' => $answer->id]) }}">
                                         View
