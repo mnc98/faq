@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('head')
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Gugi" rel="stylesheet">
+@endsection
 
 @section('content')
     <div class="container">
