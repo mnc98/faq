@@ -108,8 +108,8 @@ class AnswerController extends Controller
 
     public function best($question, $answer) {
         $answer = Answer::find($answer);
-        $users_answers = DB::table('answers')->where('user_id', $answer->user_id)->get();
-        foreach ($users_answers as $ans) {
+        $questions_answers = DB::table('answers')->where('question_id', $answer->question_id)->get();
+        foreach ($questions_answers as $ans) {
             $ans = Answer::find($ans->id);
             $ans->vote = '0';
             $ans->save();
